@@ -9,19 +9,23 @@
  *           -Gabriel Lessard    (lesg2605)
  */
 
+#include "../include/iBeaconFinder.hpp" 
 
-// setup() runs once, when the device is first turned on.
 void setup();
 void loop();
 #line 8 "/home/casto/git/Sherbrooke/APPs/S6-App5/Problematique/Borne/Asclepius/src/Asclepius.ino"
+iBeaconFinder beaconFinder;
+
+// setup() runs once, when the device is first turned on.
 void setup() {
   // Put initialization like pinMode and begin functions here.
   Serial.begin(9600);
+  BLE.begin();
+
 }
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
-  // The core of your code will likely live here.
-  Serial.printlnf("Stuff");
+  beaconFinder.scan();
   delay(100);
 }
