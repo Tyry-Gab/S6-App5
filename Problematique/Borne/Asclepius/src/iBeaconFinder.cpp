@@ -1,4 +1,5 @@
 #include "../include/iBeaconFinder.hpp"
+#include "../include/Defines.hpp"
 
 iBeaconFinder::iBeaconFinder() {
 

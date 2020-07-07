@@ -33,5 +33,5 @@ void setup() {
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
   beaconFinder.scan();
-  delay(100);
+  delay(1000);
 }

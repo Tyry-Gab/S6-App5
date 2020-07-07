@@ -1,9 +1,9 @@
 const prompt = require('prompt-sync')({sigint: true});
 var Particle = require('particle-api-js');
 var particle = new Particle();
-var particleDeviceId = 'e00fce684b2d2acbe7f14e93';
+var particleDeviceId = 'e00fce68043174ec2c0c805e';
 var functionName = 'setDEL';
-var accessToken = 'f3b7395cffd67173bbbc6ef5822f0881fad638da';
+var accessToken = '497689e3a6afb1af1762adff419e2a495741b927';
 
 function cloudDel(delState) {
     var fnPr = particle.callFunction({ deviceId: particleDeviceId, name: functionName, argument: delState, auth: accessToken});
