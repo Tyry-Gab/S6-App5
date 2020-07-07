@@ -13,6 +13,7 @@ void iBeaconFinder::scan() {
                 int major = buf[20] * 256 + buf[21];
                 int minor = buf[22] * 256 + buf[23];
                 Serial.printlnf("iBeacon found with major %d and minor %d", major, minor);
+                // Publish event to cloud iBeacon id (major concatenated with minor) (event contains time as well)
             }
         }
     }
