@@ -1,12 +1,10 @@
 var Particle = require('particle-api-js');
 var MQTT = require('mqtt');
 var csv = require('csv-parser')
-const parse = require('csv-parse/lib/sync')
 var fs = require('fs');
 const { Console } = require('console');
 var particle = new Particle();
 var employees = [];
-const csvParser = require('csv-parser');
 
 
 var MQTTOptions = {
@@ -33,20 +31,27 @@ function createStreams(filename) {
       stream.on('event', function(data) {
         // Save to database/CSV data and time of event
         // Send to MQTT broker data and time of event
-        console.log("Event: ", data);
         var employeeName = getEmployee(JSON.parse(data.data));
         console.log("Employee: ", employeeName);
-        MQTTClient.publish(data.name, data.data);
+        var json = {
+          "employee" : employeeName,
+          "room" : row.room,
+          "time" : data.published_at,
+          "action" : data.name
+        };
+        console.log(json);
+        MQTTClient.publish(data.name, JSON.stringify(json));
       });
     });
   })
 }
 
 function getEmployee(eventData) {
+  var employeeName = "Unregistered_Employee";
   employees.forEach(employee => {
     if((employee.major == eventData.major) && (employee.minor == eventData.minor)) {
-      return employee.name;
+      employeeName = employee.name;
     }
   });
-  return "Unregistered_Employee";
+  return employeeName;
 }
