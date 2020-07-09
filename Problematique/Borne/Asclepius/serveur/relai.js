@@ -1,3 +1,8 @@
+/* App5 S6 
+ * Fait par: -Thierry Constantin (cont3301)
+ *           -Gabriel Lessard    (lesg2605)
+ */
+
 var Particle = require('particle-api-js');
 var MQTT = require('mqtt');
 var csv = require('csv-parser')
@@ -6,16 +11,17 @@ const { Console } = require('console');
 var particle = new Particle();
 var employees = [];
 
+const relaiConfigFolder = 'serveur/relai_config/';
 
 var MQTTOptions = {
-  clientId: "clientId-cqnYsKIar3",
+  clientId: "clientId-relais",
   username:"Tyry-Gab",
   password:"password",
   clean:true
 }
 
 function saveCurrentEmployees() {
-  fs.createReadStream('serveur/employees.csv').pipe(csv()).on('data', (row) => {
+  fs.createReadStream(relaiConfigFolder + 'employees.csv').pipe(csv()).on('data', (row) => {
     employees.push(row);
   })
 }
@@ -23,7 +29,7 @@ function saveCurrentEmployees() {
 saveCurrentEmployees();
 
 var MQTTClient = MQTT.connect("mqtt://broker.mqttdashboard.com", MQTTOptions);
-createStreams('serveur/devices.csv');
+createStreams(relaiConfigFolder + 'devices.csv');
 
 function createStreams(filename) {
   fs.createReadStream(filename).pipe(csv()).on('data', (row) => {
@@ -32,7 +38,6 @@ function createStreams(filename) {
         // Save to database/CSV data and time of event
         // Send to MQTT broker data and time of event
         var employeeName = getEmployee(JSON.parse(data.data));
-        console.log("Employee: ", employeeName);
         var json = {
           "employee" : employeeName,
           "room" : row.room,
