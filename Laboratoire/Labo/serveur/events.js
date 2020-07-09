@@ -15,7 +15,6 @@ var MQTTOptions = {
 
 var MQTTClient = MQTT.connect("mqtt://broker.mqttdashboard.com", MQTTOptions);
 MQTTClient.on("connect",function(){	
-  MQTTClient.subscribe("Argon-Event");
   particle.getEventStream({ deviceId: DEVICE_NAME, auth: TOKEN }).then(function(stream) {
     stream.on('event', function(data) {
       console.log("Event: ", data);

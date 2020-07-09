@@ -1,3 +1,8 @@
+/* App5 S6 
+ * Fait par: -Thierry Constantin (cont3301)
+ *           -Gabriel Lessard    (lesg2605)
+ */
+
 #include "Particle.h"
 
 #ifndef IBEACONFINDER_HPP
